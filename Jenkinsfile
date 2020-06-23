@@ -15,9 +15,17 @@ spec:
     image: docker:18.05-dind
     securityContext:
         privileged: true
+    volumeMounts:
+    - name: dockerSock
+      mountPath: /var/run/docker.sock
   - name: golang
     image: golang
     command: ["sleep", "10000"]
+  volumes:
+  - name: dockerSock
+    hostPath:
+      path: /var/run/docker.sock
+      type: Socket
 """
         }
     }
@@ -54,7 +62,7 @@ spec:
             steps {
               container('docker') {
                 script {
-                    docker.withRegistry("harbor.workshop.tw:30002", registryCredential) {
+                    docker.withRegistry("http://harbor.registry.svc.cluster.local", registryCredential) {
                         dockerImage.push()
                     }
                 }

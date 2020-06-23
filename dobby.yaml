@@ -15,6 +15,8 @@ spec:
       labels:
         app: dobby
     spec:
+      imagePullSecrets:
+        - name: harbor
       containers:
       - image: dineshba/endgame:latest
         imagePullPolicy: Always
