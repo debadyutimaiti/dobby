@@ -54,7 +54,7 @@ spec:
             steps {
               container('docker') {
                 script {
-                    docker.withRegistry("", registryCredential) {
+                    docker.withRegistry("harbor.workshop.tw:30002", registryCredential) {
                         dockerImage.push()
                     }
                 }
